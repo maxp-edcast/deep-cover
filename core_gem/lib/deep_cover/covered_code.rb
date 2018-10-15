@@ -82,7 +82,7 @@ module DeepCover
 
     def setup_tracking_source
       src = "(#{DeepCover.config.tracker_global}||={})[#{@index}]||=Array.new(#{@nb_allocated_trackers},0)"
-      src += ";(#{DeepCover.config.tracker_global}_p||={})[#{@index}]=#{path.to_s.inspect}" if path && !path.empty?
+      src += ";(#{DeepCover.config.tracker_global}_p||={})[#{@index}]=#{path.to_s.inspect}" if path
       src
     end
 
