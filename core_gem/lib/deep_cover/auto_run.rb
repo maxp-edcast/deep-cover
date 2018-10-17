@@ -9,6 +9,7 @@ module DeepCover
       include Tools::AfterTests
       def initialize(covered_path)
         @covered_path = covered_path
+        @saved = false
       end
 
       def run!
@@ -25,11 +26,14 @@ module DeepCover
       private
 
       def save
+        return if @saved
         require_relative '../deep_cover'
         DeepCover.persistence.save_trackers(DeepCover::GlobalVariables.tracker_hits_per_paths)
+        @saved = true
       end
 
       def report(**options)
+        save # Some of the hooks seem to do things in reverse order. Not sure if all of them.
         coverage = Coverage.load
         coverage.report(**options)
       end
