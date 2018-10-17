@@ -3,7 +3,7 @@
 module DeepCover
   module Tools
     module AfterTests
-      def after_tests
+      def self.after_tests
         use_at_exit = true
         if defined?(::Minitest)
           use_at_exit = false
@@ -18,6 +18,10 @@ module DeepCover
         if use_at_exit
           at_exit { yield }
         end
+      end
+
+      def after_tests
+        AfterTests.after_tests { yield }
       end
     end
   end
