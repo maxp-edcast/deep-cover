@@ -9,7 +9,6 @@ module DeepCover
       include Tools::AfterTests
       def initialize(covered_path)
         @covered_path = covered_path
-        @saved = !(DeepCover.respond_to?(:running?) && DeepCover.running?)
       end
 
       def run!
@@ -24,10 +23,6 @@ module DeepCover
       end
 
       private
-
-      def saved?
-        @saved
-      end
 
       def save
         require_relative '../deep_cover'
